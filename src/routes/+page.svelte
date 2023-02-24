@@ -1,7 +1,24 @@
-<script>
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
+<script lang="ts">
+
+	import { onMount } from "svelte";
+
+ 	var address;
+
+	onMount(async () => {
+        if (typeof window.ethereum === "undefined") {
+            alert(
+                "this is a decentralized app --> please install metamask or use brave.com to interact with the blockchain"
+            );
+        } else {
+            alert("Your browserwallet is ready!");
+        }
+        const accounts = await ethereum.request({
+            method: "eth_requestAccounts",
+        });
+        address = accounts[0];
+    });
+
+
 </script>
 
 <svelte:head>
@@ -11,21 +28,8 @@
 
 <section>
 	<h1>
-		<span class="welcome">
-			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcome_fallback} alt="Welcome" />
-			</picture>
-		</span>
-
-		to your new<br />SvelteKit app
+		<h1>Your wallet address is: {address}</h1>
 	</h1>
-
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
-
-	<Counter />
 </section>
 
 <style>

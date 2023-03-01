@@ -4,18 +4,25 @@
 
  	var address;
 
+	//on component loaded
 	onMount(async () => {
         if (typeof window.ethereum === "undefined") {
             alert(
-                "this is a decentralized app --> please install metamask or use brave.com to interact with the blockchain"
-            );
+				"Please install MetaMask to use this dapp!"
+			);
         } else {
-            alert("Your browserwallet is ready!");
+			//check if user is connected to MetaMask
+			const accounts = await window.ethereum.request({
+				method: "eth_accounts",
+			});
+			//check if user has eth wallets
+			if (accounts.length === 0) {
+				alert("Not eth wallets found.");
+			} else if (accounts.length > 1) {
+				alert("Multiple eth accounts found. Using first account.")
+				address = accounts[0];
+			}
         }
-        const accounts = await ethereum.request({
-            method: "eth_requestAccounts",
-        });
-        address = accounts[0];
     });
 
 

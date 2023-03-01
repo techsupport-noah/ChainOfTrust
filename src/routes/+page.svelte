@@ -16,14 +16,19 @@
 				method: "eth_accounts",
 			});
 			//check if user has eth wallets
-			if (accounts.length === 0) {
-				alert("Not eth wallets found.");
-			} else if (accounts.length > 1) {
-				alert("Multiple eth accounts found. Using first account.")
-				address = accounts[0];
+			switch(accounts.length) {
+				case 0:
+					alert("Not eth wallets found.");
+					break;
+				case 1:
+					address = accounts[0];
+					break;
+				default:
+					alert("Multiple eth accounts found. Using first account.")
+					address = accounts[0];
 			}
-        }
-    });
+		}
+	});
 
 
 </script>

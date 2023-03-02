@@ -5,8 +5,16 @@
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width" />
 		%sveltekit.head%
+		<link href="%sveltekit.assets%/bootstrap/bootstrap.min.css" rel="stylesheet">
 	</head>
-	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">%sveltekit.body%</div>
-	</body>
-</html>
+	<body class="bg-info" data-sveltekit-preload-data="hover">
+		%sveltekit.body%
+		<script src="%sveltekit.assets%/bootstrap/bootstrap.bundle.min.js"></script>
+	</body> 
+
+	<style>
+		* {
+		  text-decoration: none!important;
+		}
+	</style>
+</html> 

@@ -4,14 +4,17 @@
 	//export const ssr = false;
 </script>
 
-<div class="app">
+<div class="app min-vh-100 bg-info">
 	<Header />
 
-	<main>
-		<slot />
-	</main>
-
-	<footer>
-		<p>Das hier ist der Standard Footer.</p>
-	</footer>
+	<div class="container d-block">
+		<div class="row mx-2 my-4 justify-content-center">
+			<div class="col-6">
+				<div class="card">
+					<slot/>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 </div>

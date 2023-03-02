@@ -3,10 +3,9 @@
 	<meta name="description" content="About this app" />
 </svelte:head>
 
-<div class="text-column">
-	<h1>About this app</h1>
+<div class="card-header h4 bg-secondary">About this app</div>
 
-	<p>
-		This is a nice crypto app.
-	</p>
+<div class="card-body">
+    <p class="card-text">This is a nice crypto app.</p>
+    <a href="#" class="btn btn-primary">Nice</a>
 </div>

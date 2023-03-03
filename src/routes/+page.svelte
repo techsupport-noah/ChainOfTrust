@@ -1,7 +1,7 @@
 <script lang="ts">
 
 	import { onMount } from "svelte";
-
+	
  	var address;
 
 	//on component loaded

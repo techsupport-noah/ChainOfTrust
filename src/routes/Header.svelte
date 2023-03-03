@@ -2,7 +2,8 @@
 	import { page } from '$app/stores';
 	import logo from '$lib/images/svelte-logo.svg';
 	import github from '$lib/images/github.svg';
-	import {Navbar} from 'sveltestrap'
+	import {Navbar} from 'sveltestrap';
+	
 </script>
 
 <header>
@@ -31,9 +32,9 @@
 						<a class="nav-link {$page.url.pathname === '/explorer' ? 'active' : '' }" href="/explorer">Explorer</a>
 					</li>
 					<li class="nav-item "
-						aria-current={$page.url.pathname === '/contribute' ? 'page' : undefined}>
+						aria-current={$page.url.pathname === '/contribute*' ? 'page' : undefined}>
 						
-						<a class="nav-link {$page.url.pathname === '/contribute' ? 'active' : '' }" href="/contribute">Contribute</a>
+						<a class="nav-link {$page.url.pathname.startsWith('/contribute') ? 'active' : '' }" href="/contribute">Contribute</a>
 					</li>
 					<li class="nav-item "
 						aria-current={$page.url.pathname === '/about' ? 'page' : undefined}>

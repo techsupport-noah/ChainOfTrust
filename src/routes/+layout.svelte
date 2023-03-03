@@ -4,7 +4,7 @@
 	//export const ssr = false;
 </script>
 
-<div class="app min-vh-100 bg-info">
+<div class="app min-vh-100 bg-info bg-gradient">
 	<Header />
 
 	<div class="container d-block">

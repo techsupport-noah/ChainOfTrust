@@ -7,7 +7,7 @@
 </script>
 
 <header>
-	<nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+	<nav class="navbar navbar-expand-sm navbar-dark bg-primary bg-gradient">
 		<div class="container-fluid justify-content-center">
 			
 			<!-- Toggling Button (when collapsed) -->

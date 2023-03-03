@@ -15,15 +15,17 @@
     <div class="container-fluid">
 
         <div class="row justify-content-center">
-        
-            <div class="col-11 justify-content-center">
-                <input type="text" class="form-control" placeholder="Search for wallet address..."> 
-            </div>
-            <div class="col-1-auto text-center">
-                <button class="btn btn-primary btn-block"><Search width={22} height={22}/></button>
-            </div>
-        </div>
 
+            <div class="col-10 justify-content-center">
+
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Search for wallet address..."> 
+                    <button class="btn btn-primary"><Search/></button>
+                </div>
+                
+            </div> 
+
+        </div>
     </div>    
 </div>
 

@@ -9,7 +9,7 @@
 
 	<div class="container d-block">
 		<div class="row mx-2 my-4 justify-content-center">
-			<div class="col-6">
+			<div class="col-12">
 				<div class="card">
 					<slot/>
 				</div>

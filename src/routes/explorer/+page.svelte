@@ -3,9 +3,16 @@
   import { fade } from "svelte/transition";
 
   let searchinput_value: String;
+  let isOpen: boolean = false;
 
-  function handleButtonClick() {
+  function handleButtonClick() 
+  {
+    // get search value
     searchinput_value = (<HTMLInputElement>document.getElementById("searchinput")).value;
+
+    // show results
+    let element = document.getElementById("collapseOne")!;
+    element.classList.add("show");
 
 	}
 </script>
@@ -25,7 +32,7 @@
             <div class="col-12 justify-content-center">
                 <div class="input-group mt-2 mb-3">
                     <input type="text" class="form-control" placeholder="Search for wallet address..." id = "searchinput"> 
-                    <button class="btn btn-primary" on:click={handleButtonClick} data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"><Search/></button>
+                    <button class="btn btn-primary" on:click={handleButtonClick}><Search/></button>
                 </div>
             </div> 
         </div>

@@ -1,4 +1,4 @@
-<script>
+<script  lang="ts">
   import Search from "svelte-bootstrap-icons/lib/Search.svelte";
 </script>
 

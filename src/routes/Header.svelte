@@ -1,9 +1,18 @@
-<script>
+<script lang="ts">
 	import { page } from '$app/stores';
-	import logo from '$lib/images/svelte-logo.svg';
-	import github from '$lib/images/github.svg';
-	import {Navbar} from 'sveltestrap';
-	
+	import { onMount } from 'svelte';
+
+	onMount(async () => {
+		//check if metamask is installed
+		const { ethereum } = window;
+
+		if (!ethereum) {
+		alert("Please install MetaMask for this application to work.");
+		}else{
+		console.log("MetaMask is installed");
+		}
+	});
+
 </script>
 
 <header>

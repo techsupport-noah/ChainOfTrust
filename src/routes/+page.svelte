@@ -2,32 +2,27 @@
 
 	import { onMount } from "svelte";
 	
- 	var address;
+ 	var address : any;
 
 	//on component loaded
 	onMount(async () => {
-        if (typeof window.ethereum === "undefined") {
-            alert(
-				"Please install MetaMask to use this dapp!"
-			);
-        } else {
-			//check if user is connected to MetaMask
-			const accounts = await window.ethereum.request({
-				method: "eth_accounts",
-			});
-			//check if user has eth wallets
-			switch(accounts.length) {
-				case 0:
-					alert("Not eth wallets found.");
-					break;
-				case 1:
-					address = accounts[0];
-					break;
-				default:
-					alert("Multiple eth accounts found. Using first account.")
-					address = accounts[0];
-			}
+		//check if user is connected to MetaMask
+		const accounts = await window.ethereum.request({
+			method: "eth_accounts",
+		});
+		//check if user has eth wallets
+		switch(accounts.length) {
+			case 0:
+				alert("Not eth wallets found.");
+				break;
+			case 1:
+				address = accounts[0];
+				break;
+			default:
+				alert("Multiple eth accounts found. Using first account.")
+				address = accounts[0];
 		}
+		
 	});
 
 

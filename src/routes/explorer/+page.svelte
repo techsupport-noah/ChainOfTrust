@@ -1,9 +1,12 @@
 <script lang="ts">
   import Search from "svelte-bootstrap-icons/lib/Search.svelte";
+  import Award from "svelte-bootstrap-icons/lib/Award.svelte";
+  import ExclamationOctagon from "svelte-bootstrap-icons/lib/ExclamationOctagon.svelte";
+  import HandThumbsUp from "svelte-bootstrap-icons/lib/HandThumbsUp.svelte";
+
   import { fade } from "svelte/transition";
 
   let searchinput_value: String;
-  let isOpen: boolean = false;
 
   function handleButtonClick() 
   {
@@ -41,21 +44,64 @@
         <div class="container-fluid">
             <div id="collapseOne" class="card collapse" aria-labelledby="headingOne">
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div class="float-left mt-2 mb-3 ml-2">X results found for: {searchinput_value}</div>
+                    <div class="col-12">
+                        <div class="float-left mt-2 mb-3 ml-2">Trustscore found for: {searchinput_value}</div>
                     </div>
                 </div>
 
-                <!-- Switch Pages -->
-                <div class="row">
-                    <div class="col-12">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                        </ul>
+                <div class="row no-gutters mb-5">
+                    <div class="col-auto">
+
+                        <!-- Scores -->
+                        <ul class="list-group">
+                            <li class="list-group-item border-0">
+                                <div class="row">
+                                    <div class="col-2 justify-content-start">
+                                        <Award width=24 height=24/>
+                                    </div>
+                                    <div class="col-10">
+                                        Score: 100
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item border-0">
+                                <div class="row">
+                                    <div class="col-2 justify-content-start">
+                                        <HandThumbsUp width=24 height=24/>
+                                    </div>
+                                    <div class="col-10">
+                                        Recommended: 50
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item border-0">
+                                <div class="row">
+                                    <div class="col-2 justify-content-start">
+                                        <ExclamationOctagon width=22 height=22 />
+                                    </div>
+                                    <div class="col-10">
+                                        Warnings: 0
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>                        
+                    </div>
+
+                    <div class="col">
+
+                        <!-- Reviews -->
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item border-primary">
+                                Latest review..
+                            </li>
+                            <li class="list-group-item border-primary">
+                                Second latest review...
+                            </li>
+                            <li class="list-group-item border-primary">
+                                Third latest review...
+                            </li>
+                        </ul>          
+
                     </div>
                 </div>
             </div>

@@ -87,7 +87,7 @@
                         </ul>                        
                     </div>
 
-                    <div class="col">
+                    <div class="col mr-2">
 
                         <!-- Reviews -->
                         <ul class="list-group list-group-flush">

@@ -4,37 +4,71 @@ import "./Rating.sol";
 
 contract RatingReader is Rating {
 
-    function getPositive() public view returns (uint) {
-        uint positive = 0;
-        for (uint i=0;i<=ratings.length;i++) {
-            if (!(ratingToOwner[i] == msg.sender)) {
+    /*  returns reviews for user or self depending on content
+            true -> count good reviews
+            false -> count bad reviews
+    */
+    function get(address _user, bool _case) public view returns (uint){
+        uint[] memory counter;
+        for (uint i=0;i<ratings.length;i++) {
+            if (ratingToOwner[i] == _user) {
                 Ratingdata storage myRating = ratings[i];
-                if (myRating.score == 0)
-                    positive++;
+                if (_isScoreValid(myRating.score)) {
+                    if (myRating.score == 0) {
+                        counter[0]++;
+                    }else {
+                        counter[1]++;
+                    }
+                }
             }
         }
-        return positive;
+        if(_case){
+            return counter[0];
+        }else {
+            return counter[1];
+        }
     }
 
-    function getNegative() public view returns (uint) {
-        uint negative = 0;
-        for (uint i=0;i<=ratings.length;i++) {
-            if (!(ratingToOwner[i] == msg.sender)) {
+    function get(bool _case) public view returns (uint){
+        uint[] memory counter;
+        for (uint i=0;i<ratings.length;i++) {
+            if (ratingToOwner[i] == msg.sender) {
                 Ratingdata storage myRating = ratings[i];
-                if (myRating.score != 0)
-                    negative++;
+                if (_isScoreValid(myRating.score)) {
+                    if (myRating.score == 0) {
+                        counter[0]++;
+                    }else {
+                        counter[1]++;
+                    }
+                }
             }
         }
-        return negative;
-    }
-
-    function getAllRatings() public view returns (uint) {
-        uint Accountrating = 0;
-        for (uint i=0;i<=ratings.length;i++) {
-            if (!(ratingToOwner[i] == msg.sender))
-                Accountrating++;
+        if(_case){
+            return counter[0];
+        }else {
+            return counter[1];
         }
-        return Accountrating;
     }
 
+    function get(address _user) public view returns (uint){
+        uint counter;
+        for (uint i=0;i<ratings.length;i++) {
+            if (ratingToOwner[i] == _user) {
+                if (_isScoreValid(ratings[i].score))
+                    counter++;
+            }
+        }
+        return counter;
+    }
+
+    function get() public view returns (uint){
+        uint counter;
+        for (uint i=0;i<ratings.length;i++) {
+            if (ratingToOwner[i] == msg.sender) {
+                if (_isScoreValid(ratings[i].score))
+                    counter++;
+            }
+        }
+        return counter;
+    }
 }

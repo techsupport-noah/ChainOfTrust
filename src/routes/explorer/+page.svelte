@@ -1,22 +1,28 @@
 <script lang="ts">
-  import Search from "svelte-bootstrap-icons/lib/Search.svelte";
-  import Award from "svelte-bootstrap-icons/lib/Award.svelte";
-  import ExclamationOctagon from "svelte-bootstrap-icons/lib/ExclamationOctagon.svelte";
-  import HandThumbsUp from "svelte-bootstrap-icons/lib/HandThumbsUp.svelte";
+    import Search from "svelte-bootstrap-icons/lib/Search.svelte";
+    import Award from "svelte-bootstrap-icons/lib/Award.svelte";
+    import ExclamationOctagon from "svelte-bootstrap-icons/lib/ExclamationOctagon.svelte";
+    import HandThumbsUp from "svelte-bootstrap-icons/lib/HandThumbsUp.svelte";
 
-  import { fade } from "svelte/transition";
+    import { fade } from "svelte/transition";
 
-  let searchinput_value: String;
+    let searchinput_value: String;
 
-  function handleButtonClick() 
-  {
-    // get search value
-    searchinput_value = (<HTMLInputElement>document.getElementById("searchinput")).value;
+    function handleButtonClick() 
+    {
+        // get search value
+        searchinput_value = (<HTMLInputElement>document.getElementById("searchinput")).value;
 
-    // show results
-    let element = document.getElementById("collapseOne")!;
-    element.classList.add("show");
+        // show results
+        let element = document.getElementById("collapseOne")!;
+        element.classList.add("show");
+    }
 
+    function handleKeydown(e: { key: any; }) {
+		 if (e.key == "Enter")
+         {
+            handleButtonClick();
+         }
 	}
 </script>
 
@@ -34,7 +40,7 @@
         <div class="row justify-content-center">
             <div class="col-12 justify-content-center">
                 <div class="input-group mt-2 mb-3">
-                    <input type="text" class="form-control" placeholder="Search for wallet address..." id = "searchinput"> 
+                    <input type="text" class="form-control" on:keydown={handleKeydown} placeholder="Search for wallet address..." id = "searchinput"> 
                     <button class="btn btn-primary" on:click={handleButtonClick}><Search/></button>
                 </div>
             </div> 
@@ -92,13 +98,13 @@
                         <!-- Reviews -->
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item border-primary">
-                                Latest review..
+                                Most common reason..
                             </li>
                             <li class="list-group-item border-primary">
-                                Second latest review...
+                                Second most common reason...
                             </li>
                             <li class="list-group-item border-primary">
-                                Third latest review...
+                                Third most common reason...
                             </li>
                         </ul>          
 

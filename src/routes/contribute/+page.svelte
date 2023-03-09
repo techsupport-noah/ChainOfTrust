@@ -1,25 +1,36 @@
 <script>
     import { page } from '$app/stores';
-    import Contribute_History from './contribute_history/Contribute_History.svelte';
-    import Contribute_Trust from './contribute_trust/Contribute_Trust.svelte';
     import { fade } from 'svelte/transition';
 
-
+   
+    
     
 
 </script>
 
 
+<svelte:head>
+  <title>Contribute Trust based</title>
+  <meta name="description" content="Contribute to the project" />
+</svelte:head>  
 
-<ul class="nav nav-tabs">
-    <li class="nav-item">
-      <a class="nav-link active" href="#history" data-bs-toggle="tab" data-bs-target="#history">History based</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#trust" data-bs-toggle="tab" data-bs-target="#trust">TrustScore based</a>
-    </li> 
-</ul>
-<div class="tab-content" in:fade={{ duration: 150 }}>
-    <div id="history" class="tab-pane fade active show" ><Contribute_History></Contribute_History></div>
-    <div id="trust" class="tab-pane fade"><Contribute_Trust></Contribute_Trust></div>
+<div class="content" in:fade={{ duration: 150 }}>
+  <div class="card-body">
+      What wallet do you want to contribute about?
+      
+      <!-- Addr selector based on wallet history -->
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Wallet address..."> 
+      </div>
+          
+      Describe your experience with this wallet.
+       
+      <!-- Description Input Form -->
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Description..."> 
+      </div>
+          
+      <!-- Submit Button -->
+      <button type="button" class="btn btn-primary">Submit</button>
+  </div>
 </div>

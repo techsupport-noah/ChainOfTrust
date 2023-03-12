@@ -6,10 +6,15 @@
 
 	//on component loaded
 	onMount(async () => {
-		//check if user is connected to MetaMask
+		//get eth accounts
 		const accounts = await window.ethereum.request({
-			method: "eth_accounts",
+			method: "eth_requestAccounts",
 		});
+
+		// const accounts = await window.ethereum.request({
+		// 	method: "eth_accounts",
+		// });
+		// console.log(accounts);
 		//check if user has eth wallets
 		switch(accounts.length) {
 			case 0:

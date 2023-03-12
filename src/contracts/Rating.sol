@@ -4,12 +4,13 @@ import "./ownable.sol";
 
 contract Rating is Ownable{
     
-    event NewRating(uint RatingId, uint score);
+    event NewRating(uint RatingId, uint score, address ratinguser);
 
     string[] private _Valid = ["Gute Bewertung","Kein Grund","schlecht test 1","schlecht test 2","schlecht test 3","schlecht test 4"];
 
     struct Ratingdata {
         uint score;
+        address ratinguser;
     }
 
     Ratingdata[] public ratings;
@@ -40,9 +41,11 @@ contract Rating is Ownable{
     }
 
     function _isbanned () internal view returns (bool){
-        if(isAccountbanned[msg.sender])
-            return true;
-        return false;
+        return isAccountbanned[msg.sender];
+    }
+
+    function _isbanned (address _user) internal view returns (bool){
+        return isAccountbanned[_user];
     }
 
     /*  User will be unable to create new reviews even with requirements

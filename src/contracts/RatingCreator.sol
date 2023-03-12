@@ -6,13 +6,13 @@ contract RatingCreator is RatingReader {
 
     /*  Adds mapping and the rating for the walet
     */ 
-    function _createRating(address _from, address _to, uint _score) private {
-        ratings.push(Ratingdata(_score));
+    function _createRating(address _to, uint _score) private {
+        ratings.push(Ratingdata(_score, msg.sender));
         uint id = ratings.length -1;
         //ratingToOwner[id][_from] = _to;
         ratingToOwner[id] = _to;
-        ownerRatingCount[_to][_from]++;
-        emit NewRating(id, _score);
+        ownerRatingCount[_to][msg.sender]++;
+        emit NewRating(id, _score, msg.sender);
     }
 
     /*  The user will be allowed to create new ratings if they have 10 or more positive ratings
@@ -41,6 +41,6 @@ contract RatingCreator is RatingReader {
         require(ownerRatingCount[_to][msg.sender] == 0); 
         //valid input
         require(_isScoreValid(_score));
-        _createRating( msg.sender, _to, _score);
+        _createRating(_to, _score);
     }
 }

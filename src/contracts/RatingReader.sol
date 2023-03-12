@@ -13,7 +13,7 @@ contract RatingReader is Rating {
         for (uint i=0;i<ratings.length;i++) {
             if (ratingToOwner[i] == _user) {
                 Ratingdata storage myRating = ratings[i];
-                if (_isScoreValid(myRating.score)) {
+                if (_isScoreValid(myRating.score) && !_isbanned(myRating.ratinguser)) {
                     if (myRating.score == 0) {
                         counter[0]++;
                     }else {
@@ -34,7 +34,7 @@ contract RatingReader is Rating {
         for (uint i=0;i<ratings.length;i++) {
             if (ratingToOwner[i] == msg.sender) {
                 Ratingdata storage myRating = ratings[i];
-                if (_isScoreValid(myRating.score)) {
+                if (_isScoreValid(myRating.score) && !_isbanned(myRating.ratinguser)) {
                     if (myRating.score == 0) {
                         counter[0]++;
                     }else {
@@ -54,7 +54,7 @@ contract RatingReader is Rating {
         uint counter;
         for (uint i=0;i<ratings.length;i++) {
             if (ratingToOwner[i] == _user) {
-                if (_isScoreValid(ratings[i].score))
+                if (_isScoreValid(ratings[i].score) && !_isbanned(ratings[i].ratinguser))
                     counter++;
             }
         }
@@ -65,7 +65,7 @@ contract RatingReader is Rating {
         uint counter;
         for (uint i=0;i<ratings.length;i++) {
             if (ratingToOwner[i] == msg.sender) {
-                if (_isScoreValid(ratings[i].score))
+                if (_isScoreValid(ratings[i].score) && !_isbanned(ratings[i].ratinguser))
                     counter++;
             }
         }

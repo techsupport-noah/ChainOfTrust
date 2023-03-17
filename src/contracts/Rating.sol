@@ -2,6 +2,11 @@ pragma solidity >=0.8.19;
 
 import "./ownable.sol";
 
+/**
+   * @title Rating
+   * @dev Base Contract for creating and editing ratings
+   * @custom:dev-run-script src/conctracts/Rating.sol
+   */
 contract Rating is Ownable{
     
     event NewRating(uint RatingId, uint score, address ratinguser);

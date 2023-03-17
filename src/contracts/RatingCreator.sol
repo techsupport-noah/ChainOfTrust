@@ -2,6 +2,10 @@ pragma solidity >=0.8.19;
 
 import "./RatingReader.sol";
 
+/**
+   * @title RatingCreator
+   * @dev Sub Contract for creating new ratings
+   */
 contract RatingCreator is RatingReader {
 
     /*  Adds mapping and the rating for the walet
@@ -36,6 +40,8 @@ contract RatingCreator is RatingReader {
         _score  -> Score for the Rating
     */
     function createNewRating(address _to, uint _score) public {
+        require(_to != msg.sender);
+        //you cannot rate yourself
         require(canCreateRatings());
         //no previous rating for this transaction
         require(ownerRatingCount[_to][msg.sender] == 0); 

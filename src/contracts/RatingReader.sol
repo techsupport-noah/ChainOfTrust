@@ -2,6 +2,10 @@ pragma solidity >=0.8.19;
 
 import "./Rating.sol";
 
+/**
+   * @title RatingReader
+   * @dev Sub Contract for reading ratings
+   */
 contract RatingReader is Rating {
 
     /*  returns reviews for user or self depending on content

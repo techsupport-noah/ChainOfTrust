@@ -12,10 +12,13 @@
     {
         // get search value
         searchinput_value = (<HTMLInputElement>document.getElementById("searchinput")).value;
-
+        
         // show results
-        let element = document.getElementById("collapseOne")!;
-        element.classList.add("show");
+        if (searchinput_value != "")
+        {
+            let element = document.getElementById("collapseOne")!;
+            element.classList.add("show");
+        }
     }
 
     function handleKeydown(e: { key: any; }) {

@@ -1,18 +1,6 @@
 <script>
-    import { page } from '$app/stores';
     import { fade } from 'svelte/transition';
-
-   
-    
-    
-
-</script>
-
-
-<svelte:head>
-  <title>Contribute Trust based</title>
-  <meta name="description" content="Contribute to the project" />
-</svelte:head>  
+</script> 
 
 <div class="content" in:fade={{ duration: 150 }}>
   <div class="card-body">

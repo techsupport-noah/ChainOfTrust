@@ -11,7 +11,7 @@ contract RatingCreator is RatingReader {
 
     /*  Adds mapping and the rating for the walet
     */ 
-    function _createRating(address _to, uint _score) private {
+    function _createRating(address _to, uint8 _score) private {
         ratings.push(Ratingdata(_score, msg.sender));
         uint id = ratings.length -1;
         //ratingToOwner[id][_from] = _to;
@@ -40,7 +40,7 @@ contract RatingCreator is RatingReader {
         _to     -> Address of the rated Walet
         _score  -> Score for the Rating
     */
-    function createNewRating(address _to, uint _score) public {
+    function createNewRating(address _to, uint8 _score) public {
         require(_to != msg.sender);
         //you cannot rate yourself
         require(canCreateRatings());

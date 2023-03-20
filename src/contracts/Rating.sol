@@ -12,10 +12,10 @@ contract Rating is Ownable{
     
     event NewRating(uint RatingId, uint score, address ratinguser);
 
-    string[] private _Valid = ["Gute Bewertung","Kein Grund","schlecht test 1","schlecht test 2","schlecht test 3","schlecht test 4"];
+    string[] private _Valid = ["Good Rating","General Scam","Bad Communication","Other"];
 
     struct Ratingdata {
-        uint score;
+        uint8 score;
         address ratinguser;
     }
 

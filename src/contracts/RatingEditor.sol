@@ -6,10 +6,11 @@ import "./Rating.sol";
 /**
    * @title RatingEditor
    * @dev Sub Contract for editing old ratings given by the msg.sender
+   Does not Work. Do not deploy
    */
 contract RatingEditor is Rating {
 
-    function _editRating(uint _location, uint _score) private {
+    function _editRating(uint _location, uint8 _score) private {
         ratings[_location].score = _score;
     }
 
@@ -25,7 +26,7 @@ contract RatingEditor is Rating {
 
     /*  change a Rating for walet done by you
     */
-    function editRating(address _to, uint _newscore) public {
+    function editRating(address _to, uint8 _newscore) public {
         //no previous rating for this transaction
         require(ownerRatingCount[_to][msg.sender] == 1); 
         //valid input

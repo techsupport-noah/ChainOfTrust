@@ -29,38 +29,34 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Explorer</title>
-	<meta name="description" content="Explorepage" />
-</svelte:head>
-
+        
 <div class="card-header h4 bg-secondary text-center">Discover the Trustworthiness of ETH Wallets - Find Your Score Today!</div>
 
-<div class="card-body" in:fade={{duration : 150}}>
-    <div class="container-fluid">
-
-        <!-- Searchbar -->
-        <div class="row justify-content-center">
-            <div class="col-12 justify-content-center">
-                <div class="input-group mt-2 mb-3">
-                    <input type="text" class="form-control" on:keydown={handleKeydown} placeholder="Search for wallet address..." id = "searchinput"> 
-                    <button class="btn btn-primary" on:click={handleButtonClick}><Search/></button>
-                </div>
-            </div> 
-        </div>
-
-        <!-- Collapsable Results -->
+    <div class="card-body" in:fade={{duration : 150}}>
         <div class="container-fluid">
-            <div id="collapseOne" class="card collapse" aria-labelledby="headingOne">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="float-left mt-2 mb-3 ml-2">Trustscore found for: {searchinput_value}</div>
+
+            <!-- Searchbar -->
+            <div class="row justify-content-center">
+                <div class="col-12 justify-content-center">
+                    <div class="input-group mt-2 mb-3">
+                        <input type="text" class="form-control" on:keydown={handleKeydown} placeholder="Search for wallet address..." id = "searchinput"> 
+                        <button class="btn btn-primary" on:click={handleButtonClick}><Search/></button>
                     </div>
-                </div>
+                </div> 
+            </div>
+
+            <!-- Collapsable Results -->
+            <div class="container-fluid">
+                <div id="collapseOne" class="card collapse" aria-labelledby="headingOne">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="float-left mt-2 mb-3 ml-2">Trustscore found for: {searchinput_value}</div>
+                        </div>
+                    </div>
 
                 <div class="row no-gutters mb-5">
                     <div class="col-auto">
-
+                
                         <!-- Scores -->
                         <ul class="list-group">
                             <li class="list-group-item border-0">
@@ -76,7 +72,7 @@
                             <li class="list-group-item border-0">
                                 <div class="row">
                                     <div class="col-2 justify-content-start">
-                                        <HandThumbsUp width=24 height=24/>
+                                       <HandThumbsUp width=24 height=24/>
                                     </div>
                                     <div class="col-10">
                                         Recommended: 50
@@ -110,10 +106,9 @@
                                 Third most common reason...
                             </li>
                         </ul>          
-
                     </div>
                 </div>
             </div>
         </div>
-    </div>  
+    </div>
 </div>

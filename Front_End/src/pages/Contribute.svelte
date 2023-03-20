@@ -1,34 +1,81 @@
 <script lang="ts">
     import { fade } from 'svelte/transition';
 
+    let defaultSelectPlaceholder = {id:0, text:"Select ..."};
+    let defaultInputPlaceholder = "Bitte geben Sie die Wallet ID ein.";
+    
     let inputWallet: string = "";
-    let inputReason = {id:0, text:"Select ..."};
-    let inputExperience = {id:0, text:"Select ..."};
+    let inputReason = defaultSelectPlaceholder;
+    let inputExperience = defaultSelectPlaceholder;
 
-    console.log(inputReason.id)
-    console.log(inputExperience.id)
+    let indexExperience;
+    let indexReason;
 
     let reason = [
-        {id:0, text:"Select ..."},
+        defaultSelectPlaceholder,
         {id:1, text:"Positive"},
         {id:2, text:"Negative"}
     ]
      
-    let experience = [
-        {id:0, text:"Select ..."},
+    let experience = [defaultSelectPlaceholder];
+
+    let experiencePositive = [
+        defaultSelectPlaceholder,
         {id:1, text:"Great experience"},
+    ]
+
+    let experienceNegative = [
+        defaultSelectPlaceholder,
         {id:2, text:"General scam"},
-        {id:2, text:"Bad communication"},
-        {id:2, text:"Other"},
+        {id:3, text:"Bad communication"},
+        {id:4, text:"Other"},
     ]
 
     function submit() {
         // get input values
-        let indexExperience = (<HTMLSelectElement>document.getElementById('inputExperience')).value;
-        let indexReason = (<HTMLSelectElement>document.getElementById('inputReason')).value;
-        console.log(inputWallet);
-        console.log(indexReason)
-        console.log(indexExperience)
+        indexExperience = (<HTMLSelectElement>document.getElementById('inputExperience')).value;
+        indexReason = (<HTMLSelectElement>document.getElementById('inputReason')).value;
+        
+        if (indexExperience != 0 && indexReason != 0 && inputWallet != "")
+        {
+          console.log("Submit!")
+          console.log(inputWallet)
+          console.log(indexReason)
+          console.log(indexExperience)
+        }
+        else
+        {
+          //TODO add modal to show error message!
+          console.log("Please fill all the forms!")
+        }
+    }
+
+    function handleReasonChange()
+    {
+      // get current reason
+      indexReason = (<HTMLSelectElement>document.getElementById('inputReason')).value;
+
+      if(indexReason == 0)
+      {
+        // disable Experience Input
+        (<HTMLSelectElement>document.getElementById('inputExperience')).disabled = true;
+      }
+      else if (indexReason == 1)
+      {
+        // enable Experience Input
+        (<HTMLSelectElement>document.getElementById('inputExperience')).disabled = false;
+
+        experience = experiencePositive;
+      }
+      else
+      {
+        // enable Experience Input
+        (<HTMLSelectElement>document.getElementById('inputExperience')).disabled = false;
+        experience = experienceNegative;
+      }
+
+      // reset Experience Selection
+      (<HTMLSelectElement>document.getElementById('inputExperience')).selectedIndex = 0;
     }
     
 </script> 
@@ -39,14 +86,14 @@
       
       <!-- Addr selector -->
       <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Wallet address..." bind:value={inputWallet}> 
+        <input type="text" class="form-control" placeholder= {defaultInputPlaceholder} bind:value={inputWallet}> 
       </div>
           
       Please select the nature of your contribution.
        
       <!-- Score Input Form -->
       <div class="input-group mb-3">
-        <select class="custom-select" id="inputReason" :value={inputReason.id}>
+        <select class="custom-select" id="inputReason" :value={inputReason.id} on:change={handleReasonChange}>
           {#each reason as e}
             <option value={e.id}>{e.text}</option>
           {/each}
@@ -57,7 +104,7 @@
        
       <!-- Description Input Form -->
       <div class="input-group mb-3">
-        <select class="custom-select" id="inputExperience" :value={inputExperience.id}>
+        <select class="custom-select" id="inputExperience" :value={inputExperience.id} disabled>
             {#each experience as e}
               <option value={e.id}>{e.text}</option>
             {/each}

@@ -18,7 +18,7 @@ contract RatingReader is Rating {
         for (uint i=0;i<ratings.length;i++) {
             if (ratingToOwner[i] == _user) {
                 Ratingdata storage myRating = ratings[i];
-                if (_isScoreValid(myRating.score) && !_isbanned(myRating.ratinguser)) {
+                if (_isScoreValid(myRating.score)) {    //TODO if ban is ever implemented again add a check for banned accounts here
                     if (myRating.score == 0) {
                         counter[0]++;
                     }else {
@@ -39,7 +39,7 @@ contract RatingReader is Rating {
         for (uint i=0;i<ratings.length;i++) {
             if (ratingToOwner[i] == msg.sender) {
                 Ratingdata storage myRating = ratings[i];
-                if (_isScoreValid(myRating.score) && !_isbanned(myRating.ratinguser)) {
+                if (_isScoreValid(myRating.score)) {    //TODO if ban is ever implemented again add a check for banned accounts here
                     if (myRating.score == 0) {
                         counter[0]++;
                     }else {
@@ -59,7 +59,7 @@ contract RatingReader is Rating {
         uint counter;
         for (uint i=0;i<ratings.length;i++) {
             if (ratingToOwner[i] == _user) {
-                if (_isScoreValid(ratings[i].score) && !_isbanned(ratings[i].ratinguser))
+                if (_isScoreValid(ratings[i].score))    //TODO if ban is ever implemented again add a check for banned accounts here
                     counter++;
             }
         }
@@ -70,7 +70,7 @@ contract RatingReader is Rating {
         uint counter;
         for (uint i=0;i<ratings.length;i++) {
             if (ratingToOwner[i] == msg.sender) {
-                if (_isScoreValid(ratings[i].score) && !_isbanned(ratings[i].ratinguser))
+                if (_isScoreValid(ratings[i].score))    //TODO if ban is ever implemented again add a check for banned accounts here
                     counter++;
             }
         }

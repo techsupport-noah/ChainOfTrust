@@ -12,7 +12,7 @@ contract Rating is Ownable{
     
     event NewRating(uint RatingId, uint score, address ratinguser);
     event NewTrusted(address newtrusteduser, address addinguser);
-    event NewBanned(address newbanneduser, address addinguser);
+    //event NewBanned(address newbanneduser, address addinguser);
 
     string[] private _Valid = ["Good Rating","General Scam","Bad Communication","Other"];
 
@@ -26,7 +26,7 @@ contract Rating is Ownable{
     //mapping (uint => mapping (address => address)) public ratingToOwner;
     mapping (uint => address) public ratingToOwner;
     mapping (address => mapping (address => uint)) ownerRatingCount;
-    mapping (address => bool) isAccountbanned;
+    //mapping (address => bool) isAccountbanned;
     mapping (address => bool) isTrustedvar;
 
     /*  Checks if the rate score is valid.
@@ -48,24 +48,28 @@ contract Rating is Ownable{
         return "Score not found";
     }
 
-    function _isbanned () internal view returns (bool){
+    /*-----------------------------------------------------------------------
+        Since we already have the trusted User group we wont be implementing a ban for now
+     *-----------------------------------------------------------------------*/
+    /*function _isbanned () internal view returns (bool){
         return isAccountbanned[msg.sender];
     }
 
     function _isbanned (address _user) internal view returns (bool){
         return isAccountbanned[_user];
-    }
+    }*/
 
     /*  User will be unable to create new reviews even with requirements
     */
-    function ban(address _user) external onlyOwner{
+    /*function ban(address _user) external onlyOwner{
         isAccountbanned[_user] = true;
         emit NewBanned(_user, msg.sender);
     }
 
     function unban(address _user) external onlyOwner{
         isAccountbanned[_user] = false;
-    }
+    }*/
+    //-----------------------------------------------------------------------
 
     /*  adds User to a group, that can create reviews without the usual requirement
     */
@@ -82,7 +86,7 @@ contract Rating is Ownable{
         for (uint i=0;i<ratings.length;i++) {
             if (ratingToOwner[i] == _user) {
                 Ratingdata storage myRating = ratings[i];
-                if (_isScoreValid(myRating.score) && !_isbanned(myRating.ratinguser)) {
+                if (_isScoreValid(myRating.score)) { //TODO if ban is ever implemented again add a check for banned accounts here
                     if (myRating.score == 0) {
                         counter++;
                         if(counter >=10){

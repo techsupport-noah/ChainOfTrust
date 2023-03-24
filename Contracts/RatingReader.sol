@@ -13,28 +13,20 @@ contract RatingReader is Rating {
             true -> count good reviews
             false -> count bad reviews
     */
-    function get(address _user, bool _case) public view returns (uint){
+    function get(address _user) public view returns (uint[] memory){
         uint[] memory counter;
         for (uint i=0;i<ratings.length;i++) {
             if (ratingToOwner[i] == _user) {
                 Ratingdata storage myRating = ratings[i];
                 if (_isScoreValid(myRating.score)) {    //TODO if ban is ever implemented again add a check for banned accounts here
-                    if (myRating.score == 0) {
-                        counter[0]++;
-                    }else {
-                        counter[1]++;
-                    }
+                    counter[myRating.score]++;
                 }
             }
         }
-        if(_case){
-            return counter[0];
-        }else {
-            return counter[1];
-        }
+        return counter;
     }
 
-    function get(bool _case) public view returns (uint){
+    /*function get(bool _case) public view returns (uint){
         uint[] memory counter;
         for (uint i=0;i<ratings.length;i++) {
             if (ratingToOwner[i] == msg.sender) {
@@ -75,5 +67,5 @@ contract RatingReader is Rating {
             }
         }
         return counter;
-    }
+    }*/
 }

@@ -145,27 +145,4 @@ contract Rating is Ownable{
         require(isTrusted() || isOwner());
         _;
     }
-
-    /*-----------------------------------------------------------------------
-        Since we already have the trusted User group we wont be implementing a ban for now
-     *-----------------------------------------------------------------------*/
-    /*function _isbanned () internal view returns (bool){
-        return isAccountbanned[msg.sender];
-    }
-
-    function _isbanned (address _user) internal view returns (bool){
-        return isAccountbanned[_user];
-    }*/
-
-    /*  User will be unable to create new reviews even with requirements
-    */
-    /*function ban(address _user) external onlyOwner{
-        isAccountbanned[_user] = true;
-        emit NewBanned(_user, msg.sender);
-    }
-
-    function unban(address _user) external onlyOwner{
-        isAccountbanned[_user] = false;
-    }*/
-    //-----------------------------------------------------------------------
 }

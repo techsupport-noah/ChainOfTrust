@@ -33,7 +33,7 @@ contract Rating is Ownable{
         =0   -> good Score
         >0  -> bad Score
     */
-    function _isScoreValid (uint _score) internal view returns (bool) {
+    function _isScoreValid (uint8 _score) internal view returns (bool) {
         if (_score >= 0 && _score <= _Valid.length -1) 
             return true;
         return false;
@@ -41,7 +41,7 @@ contract Rating is Ownable{
 
     /*  Display the score description
     */
-    function scoreMessage (uint _score) public view returns (string memory) {
+    function scoreMessage (uint8 _score) public view returns (string memory) {
         if (_isScoreValid(_score)) {
             return _Valid[_score];
         }
@@ -86,13 +86,14 @@ contract Rating is Ownable{
             true -> count good reviews
             false -> count bad reviews
     */
-    function get(address _user) public view returns (uint[] memory){
-        uint[] memory counter;
+    function get(address _user) public view returns (uint[4] memory){
+        uint[4] memory counter;
         for (uint i=0;i<ratings.length;i++) {
             if (ratingToOwner[i] == _user) {
                 Ratingdata storage myRating = ratings[i];
-                if (_isScoreValid(myRating.score)) {    //TODO if ban is ever implemented again add a check for banned accounts here
-                    counter[myRating.score]++;
+                uint8 _score = myRating.score;
+                if (_isScoreValid(_score)) {    //TODO if ban is ever implemented again add a check for banned accounts here
+                    counter[_score] += 1 ;
                 }
             }
         }

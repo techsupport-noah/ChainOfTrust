@@ -48,34 +48,55 @@ contract Rating is Ownable{
         return "Score not found";
     }
 
-    /*-----------------------------------------------------------------------
-        Since we already have the trusted User group we wont be implementing a ban for now
-     *-----------------------------------------------------------------------*/
-    /*function _isbanned () internal view returns (bool){
-        return isAccountbanned[msg.sender];
+    /*  Adds mapping and the rating for the walet
+    */ 
+    function _createRating(address _to, uint8 _score) private {
+        ratings.push(Ratingdata(_score, msg.sender));
+        uint id = ratings.length -1;
+        //ratingToOwner[id][_from] = _to;
+        ratingToOwner[id] = _to;
+        ownerRatingCount[_to][msg.sender]++;
+        _checkTrustedCondition(_to);
+        emit NewRating(id, _score, msg.sender);
     }
 
-    function _isbanned (address _user) internal view returns (bool){
-        return isAccountbanned[_user];
-    }*/
-
-    /*  User will be unable to create new reviews even with requirements
+    /*  Creates the rating for a specific transaction
+        _to     -> Address of the rated Walet
+        _score  -> Score for the Rating
     */
-    /*function ban(address _user) external onlyOwner{
-        isAccountbanned[_user] = true;
-        emit NewBanned(_user, msg.sender);
+    function createNewRating(address _to, uint8 _score) public onlyTrusted{
+        //you cannot rate yourself
+        require(_to != msg.sender);
+        require(canCreateRatings());
+        //no previous rating for this transaction
+        require(ownerRatingCount[_to][msg.sender] == 0); 
+        //valid input
+        require(_isScoreValid(_score));
+        _createRating(_to, _score);
     }
-
-    function unban(address _user) external onlyOwner{
-        isAccountbanned[_user] = false;
-    }*/
-    //-----------------------------------------------------------------------
 
     /*  adds User to a group, that can create reviews without the usual requirement
     */
     function addtrustedUser(address _user) external onlyOwner{
         isTrustedvar[_user] = true;
         emit NewTrusted(_user, msg.sender);
+    }
+
+    /*  returns reviews for user or self depending on content
+            true -> count good reviews
+            false -> count bad reviews
+    */
+    function get(address _user) public view returns (uint[] memory){
+        uint[] memory counter;
+        for (uint i=0;i<ratings.length;i++) {
+            if (ratingToOwner[i] == _user) {
+                Ratingdata storage myRating = ratings[i];
+                if (_isScoreValid(myRating.score)) {    //TODO if ban is ever implemented again add a check for banned accounts here
+                    counter[myRating.score]++;
+                }
+            }
+        }
+        return counter;
     }
 
     function _checkTrustedCondition(address _user) internal{
@@ -109,9 +130,41 @@ contract Rating is Ownable{
         return(isTrustedvar[msg.sender] == true);
     }
 
+    /*  The user will be allowed to create new ratings if they have 10 or more positive ratings
+        or if they are the Owner of this contract.
+    */
+    function canCreateRatings () public pure returns (bool){
+        //TODO if ban is ever implemented again add a check for banned accounts here
+        /*if(_isbanned())
+            return false;*/
+        return true;
+    }
+
     modifier onlyTrusted(){
         require(isTrusted() || isOwner());
         _;
     }
 
+    /*-----------------------------------------------------------------------
+        Since we already have the trusted User group we wont be implementing a ban for now
+     *-----------------------------------------------------------------------*/
+    /*function _isbanned () internal view returns (bool){
+        return isAccountbanned[msg.sender];
+    }
+
+    function _isbanned (address _user) internal view returns (bool){
+        return isAccountbanned[_user];
+    }*/
+
+    /*  User will be unable to create new reviews even with requirements
+    */
+    /*function ban(address _user) external onlyOwner{
+        isAccountbanned[_user] = true;
+        emit NewBanned(_user, msg.sender);
+    }
+
+    function unban(address _user) external onlyOwner{
+        isAccountbanned[_user] = false;
+    }*/
+    //-----------------------------------------------------------------------
 }

@@ -1,13 +1,13 @@
 //SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.19;
 
-import "./RatingReader.sol";
+import "./Rating.sol";
 
 /**
    * @title RatingCreator
    * @dev Sub Contract for creating new ratings
    */
-contract RatingCreator is RatingReader {
+contract RatingCreator is Rating {
 
     /*  Adds mapping and the rating for the walet
     */ 
@@ -17,6 +17,7 @@ contract RatingCreator is RatingReader {
         //ratingToOwner[id][_from] = _to;
         ratingToOwner[id] = _to;
         ownerRatingCount[_to][msg.sender]++;
+        _checkTrustedCondition(_to);
         emit NewRating(id, _score, msg.sender);
     }
 
@@ -24,25 +25,18 @@ contract RatingCreator is RatingReader {
         or if they are the Owner of this contract.
     */
     function canCreateRatings () public view returns (bool){
-        if(isOwner())
-            return true;
         if(_isbanned())
             return false;
-        if(isTrusted[msg.sender] == true)
-            return true;
-        uint positiveRatings = get(true);
-        if(positiveRatings >= 10)
-            return true;
-        return false;
+        return true;
     }
 
     /*  Creates the rating for a specific transaction
         _to     -> Address of the rated Walet
         _score  -> Score for the Rating
     */
-    function createNewRating(address _to, uint8 _score) public {
-        require(_to != msg.sender);
+    function createNewRating(address _to, uint8 _score) public onlyTrusted{
         //you cannot rate yourself
+        require(_to != msg.sender);
         require(canCreateRatings());
         //no previous rating for this transaction
         require(ownerRatingCount[_to][msg.sender] == 0); 

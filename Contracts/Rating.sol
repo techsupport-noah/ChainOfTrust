@@ -11,6 +11,8 @@ import "./ownable.sol";
 contract Rating is Ownable{
     
     event NewRating(uint RatingId, uint score, address ratinguser);
+    event NewTrusted(address newtrusteduser, address addinguser);
+    event NewBanned(address newbanneduser, address addinguser);
 
     string[] private _Valid = ["Good Rating","General Scam","Bad Communication","Other"];
 
@@ -25,7 +27,7 @@ contract Rating is Ownable{
     mapping (uint => address) public ratingToOwner;
     mapping (address => mapping (address => uint)) ownerRatingCount;
     mapping (address => bool) isAccountbanned;
-    mapping (address => bool) isTrusted;
+    mapping (address => bool) isTrustedvar;
 
     /*  Checks if the rate score is valid.
         =0   -> good Score
@@ -58,6 +60,7 @@ contract Rating is Ownable{
     */
     function ban(address _user) external onlyOwner{
         isAccountbanned[_user] = true;
+        emit NewBanned(_user, msg.sender);
     }
 
     function unban(address _user) external onlyOwner{
@@ -67,13 +70,44 @@ contract Rating is Ownable{
     /*  adds User to a group, that can create reviews without the usual requirement
     */
     function addtrustedUser(address _user) external onlyOwner{
-        isTrusted[_user] = true;
+        isTrustedvar[_user] = true;
+        emit NewTrusted(_user, msg.sender);
+    }
+
+    function _checkTrustedCondition(address _user) internal{
+        if(isTrustedvar[_user]){
+            return;
+        }
+        uint counter;
+        for (uint i=0;i<ratings.length;i++) {
+            if (ratingToOwner[i] == _user) {
+                Ratingdata storage myRating = ratings[i];
+                if (_isScoreValid(myRating.score) && !_isbanned(myRating.ratinguser)) {
+                    if (myRating.score == 0) {
+                        counter++;
+                        if(counter >=10){
+                            isTrustedvar[_user] = true;
+                            emit NewTrusted(_user, msg.sender);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /*  deletes User from a group, that can create reviews without the usual requirement
     */
     function deltrustedUser(address _user) external onlyOwner{
-        isTrusted[_user] = false;
+        isTrustedvar[_user] = false;
+    }
+
+    function isTrusted() internal view returns(bool){
+        return(isTrustedvar[msg.sender] == true);
+    }
+
+    modifier onlyTrusted(){
+        require(isTrusted() || isOwner());
+        _;
     }
 
 }

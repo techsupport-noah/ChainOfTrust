@@ -3,6 +3,11 @@
     import Award from "svelte-bootstrap-icons/lib/Award.svelte";
     import ExclamationOctagon from "svelte-bootstrap-icons/lib/ExclamationOctagon.svelte";
     import HandThumbsUp from "svelte-bootstrap-icons/lib/HandThumbsUp.svelte";
+    import Web3 from 'web3';
+    import { onMount } from "svelte";
+
+    let contractABI = "";//TODO: Add ABI here
+    let contractAddr = "";//TODO: Add Contract Address here
 
     import { fade } from "svelte/transition";
 
@@ -18,6 +23,9 @@
         {
             let element = document.getElementById("collapseOne")!;
             element.classList.add("show");
+            
+            let ratings = contractInstance.methods.get(searchinput_value);
+            //TODO parse ratings and display them
         }
     }
 
@@ -27,6 +35,12 @@
             handleButtonClick();
          }
 	}
+    let web3;
+    let contractInstance;
+    onMount(async () => {
+        web3 = new Web3(window.ethereum);		
+        contractInstance = new web3.eth.Contract(contractABI, contractAddr);
+	});
 </script>
 
         

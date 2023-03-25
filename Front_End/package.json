@@ -22,6 +22,7 @@
     "@fontsource/fira-mono": "^4.5.10",
     "@metamask/providers": "^10.2.1",
     "@types/node": "^18.15.3",
-    "svelte-bootstrap-icons": "^2.3.1"
+    "svelte-bootstrap-icons": "^2.3.1",
+    "web3": "^1.9.0"
   }
 }

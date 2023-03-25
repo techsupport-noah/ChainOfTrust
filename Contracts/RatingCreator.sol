@@ -24,9 +24,10 @@ contract RatingCreator is Rating {
     /*  The user will be allowed to create new ratings if they have 10 or more positive ratings
         or if they are the Owner of this contract.
     */
-    function canCreateRatings () public view returns (bool){
-        if(_isbanned())
-            return false;
+    function canCreateRatings () public pure returns (bool){
+        //TODO if ban is ever implemented again add a check for banned accounts here
+        /*if(_isbanned())
+            return false;*/
         return true;
     }
 

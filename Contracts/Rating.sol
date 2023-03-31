@@ -42,10 +42,8 @@ contract Rating is Ownable{
     /*  Display the score description
     */
     function scoreMessage(uint8 _score) public view returns (string memory) {
-        if (_isScoreValid(_score)) {
-            return _Valid[_score];
-        }
-        return "Score not found";
+        require(_isScoreValid(_score), "This score is not valid");
+        return _Valid[_score];
     }
 
     /*  Adds mapping and the rating for the walet
@@ -66,12 +64,12 @@ contract Rating is Ownable{
     */
     function createNewRating(address _to, uint8 _score) public onlyTrusted{
         //you cannot rate yourself
-        require(_to != msg.sender);
-        require(canCreateRatings());
+        require(_to != msg.sender, "You cannot rate yourself.");
+        require(canCreateRatings(), "You are not allowed to create new ratings");
         //no previous rating for this transaction
-        require(ownerRatingCount[_to][msg.sender] == 0); 
+        require(ownerRatingCount[_to][msg.sender] == 0, "You already rated this account"); 
         //valid input
-        require(_isScoreValid(_score));
+        require(_isScoreValid(_score), "This score is not valid");
         _createRating(_to, _score);
     }
 
@@ -142,7 +140,7 @@ contract Rating is Ownable{
     }
 
     modifier onlyTrusted(){
-        require(isTrusted() || isOwner());
+        require(isTrusted() || isOwner(), "The user is not Trusted");
         _;
     }
 }

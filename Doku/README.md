@@ -3,31 +3,31 @@
 Der Kontrakt wurde zunächst in mehrere subcontracts unterteilt, um das Lesen und schreiben voneinander zu trennen und einen Kontrakt zu erstellen, der komplett gas fee frei sein sollte. Allerdings wurde aufgrund von schwierigkeiten beim deployment alles in den Haupkontrakt übertragen.
 
 Der Haupkontrakt Rating.sol kann von normalen Nutzern wiefolgt benutzt werden.
-
-## createNewRating(address _to, uint8 _score)
+## Funktions
+### createNewRating(address _to, uint8 _score)
 
 Diese Funktion lässt das Wallet welches diese Funktion aufruft eine neue Bewertung für das Wallet _to anlegen.
 Das Wallet darf _to dazu noch nicht bewertet haben und der _score muss einem der in _Valid festgelegten Gründen entsprechen.
 Zudem muss das bewertende Wallet zu der Trusted User Gruppe gehören oder der Besitzer des Kontrakts sein.
 Die Funktion erstellt dann einen neuen Datentypen und verlinkt diesen mit dem Bewerteten Wallet. Der gespeicherte Datensatz enthält die Bewertung und den Nutzer, der die Bewertung erstellt hat.
 
-## scoreMessage(uint8 _score)
+### scoreMessage(uint8 _score)
 
 Mit dieser Funktion kann die Score Message, die in _Valid festgelegt ist abgefragt werden.
 
-## addtrustedUser(address _user)
+### addtrustedUser(address _user)
 
 Mit dieser Funktion kann der Besitzer des Kontrakts anderen Wallets erlauben Bewertungen abzugeben, selbst wenn diese nicht die normalen Bedigungen für diese Aktion erfüllen.
 
-## deltrustedUser(address _user)
+### deltrustedUser(address _user)
 
 Mit dieser Funktion kann der Besitzer des Kontracts anderen Wallets das recht enziehen Bewertungen abzugeben.
 
-## get(address _user)
+### get(address _user)
 
 Diese Funktionen liefert die Bewertungen die dem _user gegeben wurden in einem Array mit der Anzahl zu den einzelnen Scores zurück.
 
-## Other
+### Other
 
 Es gibt noch weitere Funktionen, die nicht außerhalb des Kontrakts benutzbar sind, wie _isScorevalid() die einfach Variablen überprüfen und dafür sorgen, dass bestimmte Funktionen nicht von jedem aufgerufen werden können.
 

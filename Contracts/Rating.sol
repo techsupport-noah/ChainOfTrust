@@ -33,7 +33,7 @@ contract Rating is Ownable{
         =0   -> good Score
         >0  -> bad Score
     */
-    function _isScoreValid (uint8 _score) internal view returns (bool) {
+    function _isScoreValid(uint8 _score) internal view returns (bool) {
         if (_score >= 0 && _score <= _Valid.length -1) 
             return true;
         return false;
@@ -41,7 +41,7 @@ contract Rating is Ownable{
 
     /*  Display the score description
     */
-    function scoreMessage (uint8 _score) public view returns (string memory) {
+    function scoreMessage(uint8 _score) public view returns (string memory) {
         if (_isScoreValid(_score)) {
             return _Valid[_score];
         }
@@ -134,7 +134,7 @@ contract Rating is Ownable{
     /*  The user will be allowed to create new ratings if they have 10 or more positive ratings
         or if they are the Owner of this contract.
     */
-    function canCreateRatings () public pure returns (bool){
+    function canCreateRatings() public pure returns (bool){
         //TODO if ban is ever implemented again add a check for banned accounts here
         /*if(_isbanned())
             return false;*/

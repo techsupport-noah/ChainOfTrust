@@ -1,5 +1,8 @@
 <script lang="ts">
-    import { fade } from 'svelte/transition';
+    import Web3 from 'web3';
+
+    let contractABI = "";//TODO: Add ABI here
+    let contractAddr = "";//TODO: Add Contract Address here
 
     let defaultSelectPlaceholder = {id:0, text:"Select ..."};
     let defaultInputPlaceholder = "Bitte geben Sie die Wallet ID ein.";
@@ -42,6 +45,9 @@
           console.log(inputWallet)
           console.log(indexReason)
           console.log(indexExperience)
+          let web3 = new Web3(window.ethereum);		
+          let contractInstance = new web3.eth.Contract(contractABI, contractAddr);
+          contractInstance.methods.createNewRating(inputWallet, indexExperience)
         }
         else
         {

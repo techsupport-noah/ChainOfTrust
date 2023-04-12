@@ -1,8 +1,8 @@
 <script lang="ts">
     import Web3 from 'web3';
+    import contractABI from '../../contractABI.json'
 
-    let contractABI = "";//TODO: Add ABI here
-    let contractAddr = "";//TODO: Add Contract Address here
+    let contractAddr = "0xe612F8Cb1d43AD832AA0EB22987B1ae09d9Ea436";
 
     let defaultSelectPlaceholder = {id:0, text:"Select ..."};
     let defaultInputPlaceholder = "Bitte geben Sie die Wallet ID ein.";

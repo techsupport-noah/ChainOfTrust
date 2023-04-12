@@ -4,19 +4,15 @@
     import ExclamationOctagon from "svelte-bootstrap-icons/lib/ExclamationOctagon.svelte";
     import HandThumbsUp from "svelte-bootstrap-icons/lib/HandThumbsUp.svelte";
     import Web3 from 'web3';
-    import { onMount } from "svelte";
     import { fade } from "svelte/transition";
+	import contractABI from '../../contractABI.json'
 
-    let contractABI = "";//TODO: Add ABI here
-    let contractAddr = "";//TODO: Add Contract Address here
+    let contractAddr = "0xe612F8Cb1d43AD832AA0EB22987B1ae09d9Ea436";
 
     let web3;
     let contractInstance;
-    onMount(async () => {
-        web3 = new Web3(window.ethereum);		
-        contractInstance = new web3.eth.Contract(contractABI, contractAddr);
-	});
-
+    web3 = new Web3(window.ethereum);
+    contractInstance = new web3.eth.Contract(contractABI, contractAddr);
     
     let searchinput_value: String;
 
@@ -44,7 +40,10 @@
             let element = document.getElementById("collapseOne")!;
             element.classList.add("show");
 
-            getRatings();
+			// get Ratings
+            contractInstance.methods.get(searchinput_value).call().then((presult) => {getRatings(presult);});
+			contractInstance.methods.scoreMessage('0').call();
+			// get Reasons
             getMostCommon();
         }
     }
@@ -56,11 +55,10 @@
          }
 	}
 
-    function getRatings(){
-        // ["Good Rating","General Scam","Bad Communication","Other"]
-        ratings = contractInstance.methods.get(searchinput_value);
-            
-        // parse ratings to display them
+	function getRatings(presult :any[])
+	{
+		ratings = presult;
+		// parse ratings to display them
         goodRating = ratings[0];
         scam = ratings[1];
         badCommunication = ratings[2];
@@ -68,7 +66,7 @@
         
         //TODO define good formula to calculate score
         score = 2*+goodRating - +(+scam + 0.5 * +badCommunication);
-    }
+	}
 
     function getMostCommon()
     {
@@ -96,13 +94,10 @@
         }
 
         // get index and count of most common reviews
-        mostCommon[0] = max;
         mostCommon[1] = ratings[max];
 
-        secondMostCommon[0] = secondmax;
         secondMostCommon[1] = ratings[secondmax];
 
-        thirdMostCommon[0] = thirdmax;
         thirdMostCommon[1] = ratings[thirdmax];
     }
 </script>
@@ -151,11 +146,11 @@
                                         </div>
                                         <div class="col-4 justify-content-start">
                                             <!-- get Description of most common review -->
-                                            {contractInstance.methods.scoreMessage(mostCommon[0])}:
+                                            
                                         </div>
                                         <div class="col-auto justify-content-start">
                                             <!-- get count of most common review -->
-                                            {mostCommon[1]}
+                                            
                                         </div>
                                     </div> 
                                 </li>
@@ -167,10 +162,10 @@
                                             2.
                                         </div>
                                         <div class="col-4 justify-content-start">
-                                            {contractInstance.methods.scoreMessage(secondMostCommon[0])}:
+                                            
                                         </div>
                                         <div class="col-auto justify-content-start">
-                                            {secondMostCommon[1]}
+                                            
                                         </div>
                                     </div>
                                 </li>
@@ -182,10 +177,10 @@
                                             3.
                                         </div>
                                         <div class="col-4 justify-content-start">
-                                            {contractInstance.methods.scoreMessage(thirdMostCommon[0])}:
+                                            
                                         </div>
                                         <div class="col-auto justify-content-start">
-                                            {thirdMostCommon[1]}
+                                            
                                         </div>
                                     </div>
                                 </li>

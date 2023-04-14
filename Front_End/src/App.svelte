@@ -26,11 +26,6 @@
 			method: "eth_requestAccounts",
 		});
 
-		// const accounts = await window.ethereum.request({
-		// 	method: "eth_accounts",
-		// });
-		// console.log(accounts);
-		//check if user has eth wallets
 		switch(accounts.length) {
 			case 0:
 				alert("Not eth wallets found.");
@@ -124,8 +119,8 @@
 						<div class="card-header h4 bg-secondary">Info</div>
 	
 						<div class="card-body">
-							<p class="card-text">Your wallet address is: {address}.</p>
-							<a href="#" class="btn btn-primary">Fuck yeah.</a>
+							<p class="card-text">Your current wallet address is: {address}.</p>
+							<a href="https://github.com/techsupport-noah/ChainOfTrust/blob/main/Doku/README.md" class="btn btn-primary">Checkout our project description</a>
 						</div>
 					</div>
 				</div>

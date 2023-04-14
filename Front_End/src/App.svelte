@@ -19,7 +19,6 @@
 			console.log("MetaMask is installed");
 		}
 	});
-
 	//on component loaded
 	onMount(async () => {
 		//get eth accounts

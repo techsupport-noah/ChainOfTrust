@@ -1,6 +1,8 @@
 <script lang="ts">
     import Web3 from 'web3';
     import contractABI from '../../contractABI.json'
+    import accounts from "../App.svelte"
+
 
     let contractAddr = "0xe612F8Cb1d43AD832AA0EB22987B1ae09d9Ea436";
 
@@ -47,7 +49,17 @@
           console.log(indexExperience)
           let web3 = new Web3(window.ethereum);		
           let contractInstance = new web3.eth.Contract(contractABI, contractAddr);
-          contractInstance.methods.createNewRating(inputWallet, indexExperience)
+          
+          window.ethereum.request({
+            method: "eth_requestAccounts",
+          }).then((presult) => {
+            
+            console.log(presult)
+            contractInstance.methods.createNewRating(inputWallet, indexExperience).send(
+            {from:presult[0]}
+            );
+          });
+          
         }
         else
         {

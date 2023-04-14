@@ -45,10 +45,6 @@
                 getRatings(presult);
                 getMostCommon(presult);
             });
-			
-			
-            // get Reasons
-            getMostCommon();
         }
     }
 

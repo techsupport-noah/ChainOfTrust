@@ -120,7 +120,7 @@
 	
 						<div class="card-body">
 							<p class="card-text">Your current wallet address is: {address}.</p>
-							<a href="https://github.com/techsupport-noah/ChainOfTrust/blob/main/Doku/README.md" class="btn btn-primary">Checkout our project description</a>
+							<a href="https://github.com/techsupport-noah/ChainOfTrust/blob/main/README.md" class="btn btn-primary">Checkout our project description</a>
 						</div>
 					</div>
 				</div>

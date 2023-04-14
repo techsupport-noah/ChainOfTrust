@@ -41,9 +41,13 @@
             element.classList.add("show");
 
 			// get Ratings
-            contractInstance.methods.get(searchinput_value).call().then((presult) => {getRatings(presult);});
-			contractInstance.methods.scoreMessage('0').call();
-			// get Reasons
+            contractInstance.methods.get(searchinput_value).call().then((presult) => {
+                getRatings(presult);
+                getMostCommon(presult);
+            });
+			
+			
+            // get Reasons
             getMostCommon();
         }
     }
@@ -68,13 +72,13 @@
         score = 2*+goodRating - +(+scam + 0.5 * +badCommunication);
 	}
 
-    function getMostCommon()
+    function getMostCommon(presult :any[])
     {
         let max = 0;
         let secondmax = 1;
         let thirdmax = 2;
+        ratings = presult;
 
-        console.log(ratings)
         for(let i = 1; i < ratings.length; i++)
         {
             if(ratings[i] > ratings[max]){
@@ -93,12 +97,20 @@
             }
         }
 
-        // get index and count of most common reviews
-        mostCommon[1] = ratings[max];
+        contractInstance.methods.scoreMessage(max).call().then((presult)=>{
+            mostCommon[0] = presult;
+            mostCommon[1] = ratings[max];
+        });
 
-        secondMostCommon[1] = ratings[secondmax];
+        contractInstance.methods.scoreMessage(secondmax).call().then((presult)=>{
+            secondMostCommon[0] = presult;
+            secondMostCommon[1] = ratings[secondmax];
+        });
 
-        thirdMostCommon[1] = ratings[thirdmax];
+        contractInstance.methods.scoreMessage(thirdmax).call().then((presult)=>{
+            thirdMostCommon[0] = presult;
+            thirdMostCommon[1] = ratings[thirdmax];
+        });
     }
 </script>
 
@@ -146,11 +158,11 @@
                                         </div>
                                         <div class="col-4 justify-content-start">
                                             <!-- get Description of most common review -->
-                                            
+                                            {mostCommon[0]}
                                         </div>
                                         <div class="col-auto justify-content-start">
                                             <!-- get count of most common review -->
-                                            
+                                            {mostCommon[1]}
                                         </div>
                                     </div> 
                                 </li>
@@ -162,10 +174,10 @@
                                             2.
                                         </div>
                                         <div class="col-4 justify-content-start">
-                                            
+                                            {secondMostCommon[0]}
                                         </div>
                                         <div class="col-auto justify-content-start">
-                                            
+                                            {secondMostCommon[1]}
                                         </div>
                                     </div>
                                 </li>
@@ -177,10 +189,10 @@
                                             3.
                                         </div>
                                         <div class="col-4 justify-content-start">
-                                            
+                                            {thirdMostCommon[0]}
                                         </div>
                                         <div class="col-auto justify-content-start">
-                                            
+                                            {thirdMostCommon[1]}
                                         </div>
                                     </div>
                                 </li>

@@ -1,10 +1,5 @@
 <script lang="ts">
-    import Web3 from 'web3';
-    import contractABI from '../../contractABI.json'
-    import accounts from "../App.svelte"
-
-
-    let contractAddr = "0xe612F8Cb1d43AD832AA0EB22987B1ae09d9Ea436";
+    import {contractInstance} from "../Contract"
 
     let defaultSelectPlaceholder = {id:0, text:"Select ..."};
     let defaultInputPlaceholder = "Bitte geben Sie die Wallet ID ein.";
@@ -43,13 +38,6 @@
         
         if (indexExperience != 0 && indexReason != 0 && inputWallet != "")
         {
-          console.log("Submit!")
-          console.log(inputWallet)
-          console.log(indexReason)
-          console.log(indexExperience)
-          let web3 = new Web3(window.ethereum);		
-          let contractInstance = new web3.eth.Contract(contractABI, contractAddr);
-          
           window.ethereum.request({
             method: "eth_requestAccounts",
           }).then((presult) => {
@@ -111,7 +99,7 @@
        
       <!-- Score Input Form -->
       <div class="input-group mb-3">
-        <select class="custom-select" id="inputReason" :value={inputReason.id} on:change={handleReasonChange}>
+        <select class="custom-select" id="inputReason" value={inputReason.id} on:change={handleReasonChange}>
           {#each reason as e}
             <option value={e.id}>{e.text}</option>
           {/each}
@@ -122,7 +110,7 @@
        
       <!-- Description Input Form -->
       <div class="input-group mb-3">
-        <select class="custom-select" id="inputExperience" :value={inputExperience.id} disabled>
+        <select class="custom-select" id="inputExperience" value={inputExperience.id} disabled>
             {#each experience as e}
               <option value={e.id}>{e.text}</option>
             {/each}

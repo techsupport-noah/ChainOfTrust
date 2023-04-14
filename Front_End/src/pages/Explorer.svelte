@@ -3,16 +3,8 @@
     import Award from "svelte-bootstrap-icons/lib/Award.svelte";
     import ExclamationOctagon from "svelte-bootstrap-icons/lib/ExclamationOctagon.svelte";
     import HandThumbsUp from "svelte-bootstrap-icons/lib/HandThumbsUp.svelte";
-    import Web3 from 'web3';
     import { fade } from "svelte/transition";
-	import contractABI from '../../contractABI.json'
-
-    let contractAddr = "0xe612F8Cb1d43AD832AA0EB22987B1ae09d9Ea436";
-
-    let web3;
-    let contractInstance;
-    web3 = new Web3(window.ethereum);
-    contractInstance = new web3.eth.Contract(contractABI, contractAddr);
+    import {contractInstance} from "../Contract"
     
     let searchinput_value: String;
 

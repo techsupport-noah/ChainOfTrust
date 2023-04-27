@@ -12,10 +12,10 @@ Chain of Trust is a webapp designed to let you interact with our contract. We ai
 
 Our Webapp gives you access to:
 - contribution features
-![Contribution Screenshot](https://github.com/techsupport-noah/ChainOfTrust/blob/main/Doku/Screenshot_Contribute.jpg?raw=true)
+![Contribution Screenshot](https://github.com/techsupport-noah/ChainOfTrust/blob/main/Assets/Screenshot_Contribute.jpg?raw=true)
 
 - explorer features
-![Explorer Screenshot](https://github.com/techsupport-noah/ChainOfTrust/blob/main/Doku/Screenshot_Explorer.jpg?raw=true)
+![Explorer Screenshot](https://github.com/techsupport-noah/ChainOfTrust/blob/main/Assets/Screenshot_Explorer.jpg?raw=true)
 
 ## RESOURCES
 
